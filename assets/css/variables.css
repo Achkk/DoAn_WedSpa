@@ -1,0 +1,51 @@
+:root {
+    /* ================= TONE MÀU CHỦ ĐẠO: HỒNG LAI TÍM XANH ================= */
+    /* Màu sắc chuyển tiếp: Hồng Sen (Rose) -> Tím Lavender (Violet) -> Xanh Biển (Indigo/Cyan) */
+    --primary: #8b5cf6;                      /* Sắc tím iris hoa phong lan dịu mát */
+    --primary-hover: #7c3aed;                /* Tím violet đậm sang trọng */
+    --primary-light: #f5f3ff;                /* Nền tím lavender phấn siêu nhẹ */
+    --primary-badge: #ede9fe;                /* Nền badge tím nhạt */
+
+    /* Các sắc thái phối hợp Hồng & Xanh */
+    --accent-pink: #ec4899;                  /* Sắc hồng cánh sen thanh lịch */
+    --accent-pink-hover: #db2777;            /* Hồng đậm quý phái */
+    --accent-blue: #0ea5e9;                  /* Xanh ngọc biển trong lành */
+    --accent-indigo: #6366f1;                /* Xanh tím indigo hiện đại */
+
+    /* Hệ Gradient Hồng lai Tím Xanh đặc trưng */
+    --primary-gradient: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+    --primary-gradient-hover: linear-gradient(135deg, #db2777 0%, #7c3aed 50%, #2563eb 100%);
+    --primary-gradient-subtle: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 50%, #eff6ff 100%);
+
+    /* Nền & Chữ & Đường viền */
+    --bg-body: #faf8fd;                      /* Nền trang phớt ánh hồng tím rất nhẹ, êm dịu mắt */
+    --bg-card: #ffffff;
+    --text-main: #1e1b4b;                    /* Màu chữ xanh đêm tím sâu (Midnight Indigo) sắc nét */
+    --text-muted: #64748b;
+    --border-color: #ede8f5;                 /* Viền phớt tím hồng pastel đồng bộ */
+
+    /* Trạng thái đơn hẹn & thông báo */
+    --status-pending-bg: #fef3c7;
+    --status-pending-text: #b45309;
+    --status-confirmed-bg: #ede9fe;
+    --status-confirmed-text: #6d28d9;
+    --status-completed-bg: #fce7f3;
+    --status-completed-text: #be185d;
+    --status-cancelled-bg: #fee2e2;
+    --status-cancelled-text: #dc2626;
+
+    /* Bo góc & Bóng đổ (Glow Hồng - Tím) */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    --shadow-sm: 0 2px 6px rgba(139, 92, 246, 0.05);
+    --shadow-card: 0 4px 16px rgba(139, 92, 246, 0.06);
+    --shadow-hover: 0 10px 25px rgba(139, 92, 246, 0.12);
+    --shadow-glow: 0 4px 16px rgba(236, 72, 153, 0.25);
+
+    --font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    --transition-fast: 0.2s ease-in-out;
+    --transition-normal: 0.3s ease-in-out;
+}

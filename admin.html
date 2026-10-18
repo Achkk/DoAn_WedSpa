@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Quản Trị Spa Dashboard - Wed-Spa</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+<!-- MÀN HÌNH BẢO VỆ ĐĂNG NHẬP ADMIN (SECURITY AUTH OVERLAY) -->
+<div id="admin-auth-overlay" class="admin-auth-overlay">
+    <div class="admin-auth-card">
+        <div class="admin-auth-icon">
+            <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="admin-auth-title">Đăng Nhập Quản Trị Viên</h2>
+        <p class="admin-auth-subtitle">Vui lòng nhập mã PIN hoặc mật khẩu Admin để truy cập bảng điều khiển.</p>
+
+        <form id="admin-pin-form">
+            <div class="form-group text-left">
+                <label for="admin-pin-input" class="form-label">Mật khẩu Quản trị hoặc Mã PIN</label>
+                <input type="password" id="admin-pin-input" class="form-control admin-pin-input" placeholder="Nhập PIN: 1234 hoặc Mật khẩu: admin123" autofocus autocomplete="off" required>
+            </div>
+            <div class="admin-auth-hint">
+                <i class="fa-solid fa-circle-info text-primary"></i> <strong>Gợi ý:</strong> Mã PIN: <code>1234</code> hoặc Mật khẩu Admin: <code>admin123</code>
+            </div>
+            <button type="submit" class="btn btn--primary w-100 btn-lg">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i> Đăng Nhập Quản Trị
+            </button>
+        </form>
+        <div class="admin-auth-back">
+            <a href="index.html">← Quay lại Trang Chủ Website</a>
+        </div>
+    </div>
+</div>
+
+<!-- GIAO DIỆN CHÍNH CỦA ADMIN -->
+<div class="admin-layout d-none" id="admin-dashboard-app">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar is-collapsed" id="admin-sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-info">
+                <div class="header_logo-icon"><i class="fa-solid fa-spa"></i></div>
+                <span class="brand-text">Wed-Spa Admin</span>
+            </div>
+            <button type="button" class="btn-sidebar-toggle" id="btn-toggle-sidebar" title="Đẩy ra để hiện chữ" aria-label="Mở rộng hoặc thu gọn menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="#" class="sidebar-link is-active" id="nav-tab-appointments" data-tooltip="Quản Lý Lịch Hẹn">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span class="sidebar-link-text">Quản Lý Lịch Hẹn</span>
+            </a>
+            <a href="#" class="sidebar-link" id="nav-tab-services" data-tooltip="Dịch Vụ Spa">
+                <i class="fa-solid fa-spa"></i>
+                <span class="sidebar-link-text">Dịch Vụ Spa</span>
+            </a>
+            <a href="#" class="sidebar-link" id="nav-tab-vouchers" data-tooltip="Mã Giảm Giá">
+                <i class="fa-solid fa-ticket"></i>
+                <span class="sidebar-link-text">Mã Giảm Giá</span>
+            </a>
+            <a href="#" class="sidebar-link" id="nav-tab-messages" data-tooltip="Tin Nhắn Khách Hàng">
+                <i class="fa-solid fa-envelope-open-text"></i>
+                <span class="sidebar-link-text">Tin Nhắn Khách Hàng</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button type="button" class="btn btn--secondary w-100 text-danger btn-logout" id="btn-admin-logout" data-tooltip="Đăng Xuất">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span class="sidebar-link-text">Đăng Xuất</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Topbar -->
+        <div class="admin-topbar">
+            <div class="admin-title-box">
+                <h1 id="page-heading">Bảng Điều Khiển Lịch Hẹn</h1>
+                <p>Theo dõi thời gian thực các đơn đặt lịch và doanh thu dịch vụ.</p>
+            </div>
+
+            <div class="admin-user">
+                <div class="admin-avatar">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <div class="admin-user-name">Quản Trị Viên</div>
+                    <div class="admin-user-role">Toàn quyền hệ thống</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--primary">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Tổng Lịch Hẹn</span>
+                    <span class="stat-val" id="metric-total-count">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--pending">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Đang Chờ Duyệt</span>
+                    <span class="stat-val stat-val--pending" id="metric-pending-count">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--confirmed">
+                    <i class="fa-regular fa-circle-check"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Đã Duyệt Ca</span>
+                    <span class="stat-val stat-val--confirmed" id="metric-confirmed-count">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon stat-icon--revenue">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <div class="stat-info">
+                    <span class="stat-label">Doanh Thu Dự Kiến</span>
+                    <span class="stat-val" id="metric-revenue">0 ₫</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thanh tỷ lệ trạng thái đơn hẹn trực quan -->
+        <div class="status-ratio-card">
+            <div class="ratio-header">
+                <div class="ratio-title">
+                    <i class="fa-solid fa-chart-pie text-primary"></i> Phân Bổ Tỷ Lệ Trạng Thái Ca Hẹn
+                </div>
+                <div class="text-sm text-muted" id="ratio-total-label">Tổng cộng: 0 ca</div>
+            </div>
+            <div class="ratio-bar-wrap">
+                <div class="ratio-seg ratio-seg--pending" id="ratio-bar-pending" title="Chờ duyệt"></div>
+                <div class="ratio-seg ratio-seg--confirmed" id="ratio-bar-confirmed" title="Đã duyệt"></div>
+                <div class="ratio-seg ratio-seg--completed" id="ratio-bar-completed" title="Hoàn thành"></div>
+                <div class="ratio-seg ratio-seg--cancelled" id="ratio-bar-cancelled" title="Đã hủy"></div>
+            </div>
+            <div class="ratio-legend">
+                <div class="ratio-legend-item">
+                    <div class="ratio-dot ratio-dot--pending"></div>
+                    <span>Chờ duyệt: <strong id="ratio-val-pending">0%</strong></span>
+                </div>
+                <div class="ratio-legend-item">
+                    <div class="ratio-dot ratio-dot--confirmed"></div>
+                    <span>Đã duyệt: <strong id="ratio-val-confirmed">0%</strong></span>
+                </div>
+                <div class="ratio-legend-item">
+                    <div class="ratio-dot ratio-dot--completed"></div>
+                    <span>Hoàn thành: <strong id="ratio-val-completed">0%</strong></span>
+                </div>
+                <div class="ratio-legend-item">
+                    <div class="ratio-dot ratio-dot--cancelled"></div>
+                    <span>Đã hủy: <strong id="ratio-val-cancelled">0%</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 1: QUẢN LÝ LỊCH HẸN -->
+        <section id="view-appointments-section">
+            <!-- Filter Toolbar -->
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="admin-search-input" class="form-control" placeholder="Tìm theo Tên, SĐT, Mã đơn...">
+                    </div>
+
+                    <select id="admin-status-filter" class="form-control">
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="pending">Chờ duyệt</option>
+                        <option value="confirmed">Đã duyệt</option>
+                        <option value="completed">Đã hoàn thành</option>
+                        <option value="cancelled">Đã hủy</option>
+                    </select>
+
+                    <input type="date" id="admin-date-filter" class="form-control">
+                </div>
+
+                <div class="filter-group">
+                    <button type="button" class="btn btn--secondary btn-sm" id="btn-export-csv" title="Tải file CSV danh sách lịch hẹn">
+                        <i class="fa-solid fa-file-excel text-success"></i> Xuất Excel (CSV)
+                    </button>
+                    <button type="button" class="btn btn--secondary btn-sm" id="btn-reset-filters">
+                        <i class="fa-solid fa-arrows-rotate"></i> Đặt lại
+                    </button>
+                    <a href="booking.html" target="_blank" class="btn btn--primary btn-sm">
+                        <i class="fa-solid fa-plus"></i> Tạo Ca Mới
+                    </a>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th class="col-apt-code">Mã Đơn</th>
+                            <th class="col-apt-customer">Khách Hàng & SĐT</th>
+                            <th class="col-apt-service">Dịch Vụ</th>
+                            <th class="col-apt-therapist">Kỹ Thuật Viên</th>
+                            <th class="col-apt-datetime">Ngày & Giờ</th>
+                            <th class="col-apt-price">Số Tiền</th>
+                            <th class="col-apt-status">Trạng Thái</th>
+                            <th class="col-apt-actions text-right">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-appointments-tbody">
+                        <!-- Nạp động qua JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW 2: QUẢN LÝ MÃ GIẢM GIÁ (VOUCHERS) -->
+        <section id="view-vouchers-section" class="d-none">
+            <div class="admin-section-header">
+                <div>
+                    <h2 class="admin-section-title">Danh Sách Mã Ưu Đãi</h2>
+                    <p class="admin-section-subtitle">Tạo mã khuyến mãi mới hoặc tạm dừng các mã đang chạy.</p>
+                </div>
+                <button type="button" class="btn btn--primary" id="btn-open-create-voucher">
+                    <i class="fa-solid fa-plus"></i> Thêm Voucher Mới
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Code</th>
+                            <th>Mô Tả Khuyến Mãi</th>
+                            <th>Loại Giảm</th>
+                            <th>Giá Trị</th>
+                            <th>Đơn Tối Thiểu</th>
+                            <th>Trạng Thái</th>
+                            <th class="text-right">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-vouchers-tbody">
+                        <!-- Nạp động qua JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW 3: QUẢN LÝ DỊCH VỤ SPA -->
+        <section id="view-services-section" class="d-none">
+            <div class="admin-section-header">
+                <div>
+                    <h2 class="admin-section-title">Danh Mục Dịch Vụ Spa</h2>
+                    <p class="admin-section-subtitle">Thêm dịch vụ mới, điều chỉnh bảng giá hoặc thời lượng liệu trình.</p>
+                </div>
+                <button type="button" class="btn btn--primary" id="btn-open-create-service">
+                    <i class="fa-solid fa-plus"></i> Thêm Dịch Vụ Mới
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên Dịch Vụ</th>
+                            <th>Phân Loại</th>
+                            <th>Thời Lượng</th>
+                            <th>Giá Niêm Yết</th>
+                            <th class="text-right">Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-services-tbody">
+                        <!-- Nạp động qua JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VIEW 4: TIN NHẮN TƯ VẤN & GÓP Ý KHÁCH HÀNG -->
+        <section id="view-messages-section" class="d-none">
+            <div class="admin-section-header">
+                <div>
+                    <h2 class="admin-section-title">Hộp Thư Khách Hàng</h2>
+                    <p class="admin-section-subtitle">Danh sách yêu cầu tư vấn và phản hồi gửi từ trang Liên hệ.</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Khách Hàng</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Chủ Đề</th>
+                            <th>Nội Dung Tin Nhắn</th>
+                            <th>Thời Gian Gửi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-messages-tbody">
+                        <!-- Nạp động qua JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal Xem chi tiết lịch hẹn -->
+<div class="modal-overlay" id="appointment-detail-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 class="modal-title">Chi Tiết Lịch Hẹn <span id="detail-apt-code" class="text-primary"></span></h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body" id="detail-modal-body">
+            <!-- Nạp động qua JS -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--secondary" data-close-modal>Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Chỉnh Sửa Lịch Hẹn -->
+<div class="modal-overlay" id="edit-appointment-modal">
+    <div class="modal-box modal-box-lg">
+        <div class="modal-header">
+            <h3 class="modal-title">Chỉnh Sửa Lịch Hẹn <span id="edit-apt-code" class="text-primary"></span></h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="form-edit-appointment">
+            <input type="hidden" id="edit-apt-id">
+            <div class="modal-body">
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="edit-apt-name" class="form-label">Họ tên khách hàng <span class="required">*</span></label>
+                        <input type="text" id="edit-apt-name" class="form-control" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-apt-phone" class="form-label">Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="edit-apt-phone" class="form-control" placeholder="0912345678" required>
+                    </div>
+                </div>
+
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="edit-apt-service" class="form-label">Gói dịch vụ Spa <span class="required">*</span></label>
+                        <select id="edit-apt-service" class="form-control" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-apt-therapist" class="form-label">Kỹ thuật viên phụ trách</label>
+                        <select id="edit-apt-therapist" class="form-control"></select>
+                    </div>
+                </div>
+
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="edit-apt-date" class="form-label">Ngày hẹn <span class="required">*</span></label>
+                        <input type="date" id="edit-apt-date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-apt-time" class="form-label">Khung giờ hẹn <span class="required">*</span></label>
+                        <select id="edit-apt-time" class="form-control" required></select>
+                    </div>
+                </div>
+
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="edit-apt-status" class="form-label">Trạng thái ca hẹn <span class="required">*</span></label>
+                        <select id="edit-apt-status" class="form-control" required>
+                            <option value="pending">Chờ duyệt</option>
+                            <option value="confirmed">Đã duyệt</option>
+                            <option value="completed">Hoàn thành</option>
+                            <option value="cancelled">Đã hủy</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-apt-payment" class="form-label">Hình thức thanh toán</label>
+                        <select id="edit-apt-payment" class="form-control">
+                            <option value="cash">Tại quầy Spa (Tiền mặt / Thẻ)</option>
+                            <option value="banking">Chuyển khoản QR ngân hàng</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-apt-price" class="form-label">Tổng tiền thanh toán (₫) <span class="required">*</span></label>
+                    <input type="number" id="edit-apt-price" class="form-control" min="0" step="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-apt-notes" class="form-label">Ghi chú yêu cầu của khách & Ghi chú nội bộ</label>
+                    <textarea id="edit-apt-notes" class="form-control" rows="2" placeholder="Ghi chú yêu cầu riêng của khách..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--secondary" data-close-modal>Hủy</button>
+                <button type="submit" class="btn btn--primary">Lưu Thay Đổi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Thêm Dịch Vụ Mới -->
+<div class="modal-overlay" id="create-service-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 class="modal-title">Thêm Dịch Vụ Spa Mới</h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="form-create-service">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-ser-name" class="form-label">Tên gói dịch vụ <span class="required">*</span></label>
+                    <input type="text" id="new-ser-name" class="form-control" placeholder="VD: Massage Thảo Dược Tây Tạng" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-ser-cat" class="form-label">Phân loại danh mục</label>
+                    <select id="new-ser-cat" class="form-control">
+                        <option value="Massage Trị Liệu">Massage Trị Liệu</option>
+                        <option value="Chăm Sóc Da">Chăm Sóc Da</option>
+                        <option value="Dưỡng Sinh">Dưỡng Sinh</option>
+                        <option value="Trị Liệu Chuyên Sâu">Trị Liệu Chuyên Sâu</option>
+                        <option value="Chăm Sóc Toàn Thân">Chăm Sóc Toàn Thân</option>
+                    </select>
+                </div>
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="new-ser-duration" class="form-label">Thời lượng (phút) <span class="required">*</span></label>
+                        <input type="number" id="new-ser-duration" class="form-control" placeholder="60" min="15" step="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-ser-price" class="form-label">Giá niêm yết (₫) <span class="required">*</span></label>
+                        <input type="number" id="new-ser-price" class="form-control" placeholder="350000" min="50000" step="10000" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="new-ser-desc" class="form-label">Mô tả tóm tắt</label>
+                    <textarea id="new-ser-desc" class="form-control" placeholder="Mô tả công dụng và các bước nổi bật của liệu trình..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--secondary" data-close-modal>Hủy</button>
+                <button type="submit" class="btn btn--primary">Lưu Dịch Vụ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Thêm Voucher Mới -->
+<div class="modal-overlay" id="create-voucher-modal">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 class="modal-title">Tạo Mã Giảm Giá Mới</h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="form-create-voucher">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="new-v-code" class="form-label">Mã Giảm Giá (Code) <span class="required">*</span></label>
+                    <input type="text" id="new-v-code" class="form-control text-uppercase" placeholder="VD: HE2026" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-v-desc" class="form-label">Mô tả chương trình <span class="required">*</span></label>
+                    <input type="text" id="new-v-desc" class="form-control" placeholder="VD: Giảm giá mùa hè cho khách mới" required>
+                </div>
+                <div class="form-row-2col">
+                    <div class="form-group">
+                        <label for="new-v-type" class="form-label">Loại giảm giá</label>
+                        <select id="new-v-type" class="form-control">
+                            <option value="percent">Phần trăm (%)</option>
+                            <option value="fixed">Số tiền cố định (₫)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-v-val" class="form-label">Giá trị giảm <span class="required">*</span></label>
+                        <input type="number" id="new-v-val" class="form-control" placeholder="VD: 15 hoặc 50000" min="1" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="new-v-min" class="form-label">Đơn tối thiểu áp dụng (₫)</label>
+                    <input type="number" id="new-v-min" class="form-control" placeholder="0" min="0" value="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--secondary" data-close-modal>Hủy</button>
+                <button type="submit" class="btn btn--primary">Lưu Voucher</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
+

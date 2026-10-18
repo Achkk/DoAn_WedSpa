@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra Cứu Lịch Hẹn Đã Đặt - Wed-Spa</title>
+    <meta name="description" content="Tra cứu và quản lý lịch hẹn spa cá nhân qua số điện thoại. Kiểm tra trạng thái đơn, hủy lịch hoặc in phiếu hẹn dễ dàng.">
+    <meta property="og:title" content="Tra Cứu Lịch Hẹn Cá Nhân - Wed-Spa">
+    <meta property="og:description" content="Nhập số điện thoại để xem toàn bộ lịch sử và trạng thái ca hẹn của bạn tại Wed-Spa.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container header_nav">
+        <a href="index.html" class="header_logo">
+            <div class="header_logo-icon"><i class="fa-solid fa-spa"></i></div>
+            <span>Wed-Spa</span>
+        </a>
+
+        <nav class="header_menu">
+            <a href="index.html" class="header_link">Trang Chủ</a>
+            <a href="about.html" class="header_link">Giới Thiệu</a>
+            <a href="services.html" class="header_link">Dịch Vụ</a>
+            <a href="my-bookings.html" class="header_link is-active">Tra Cứu Lịch</a>
+            <a href="contact.html" class="header_link">Liên Hệ</a>
+        </nav>
+
+        <div class="header_actions">
+            <a href="my-bookings.html" class="btn btn--secondary">
+                <i class="fa-regular fa-calendar-check"></i> Tra cứu
+            </a>
+            <a href="booking.html" class="btn btn--primary">
+                <i class="fa-regular fa-calendar-plus"></i> Đặt Lịch Ngay
+            </a>
+            <button class="header_burger" aria-label="Menu điều hướng">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="search-hero">
+        <div class="container">
+            <span class="section_tag">Quản Lý Lịch Hẹn</span>
+            <h1 class="section_title mt-10">Tra Cứu Thông Tin Ca Hẹn Của Bạn</h1>
+            <p class="section_subtitle">
+                Nhập số điện thoại bạn đã dùng khi đặt hẹn để theo dõi trạng thái tiếp nhận và quản lý lịch.
+            </p>
+
+            <form class="search-form-wrap" id="search-booking-form">
+                <input type="tel" id="lookup-phone" class="form-control" placeholder="Nhập số điện thoại (VD: 0912345678)" required>
+                <button type="submit" class="btn btn--primary">
+                    <i class="fa-solid fa-magnifying-glass"></i> Tra Cứu
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="section pt-20">
+        <div class="container container-narrow">
+            <div id="booking-results-container">
+                <!-- Nội dung hiển thị sau khi tra cứu -->
+                <div class="lookup-empty-prompt">
+                    <i class="fa-regular fa-calendar-days lookup-empty-icon"></i>
+                    <p>Vui lòng nhập số điện thoại ở trên để tra cứu danh sách lịch hẹn.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Modal xác nhận hủy lịch -->
+<div class="modal-overlay" id="cancel-confirm-modal">
+    <div class="modal-box modal-box-sm">
+        <div class="modal-header">
+            <h3 class="modal-title text-danger"><i class="fa-solid fa-triangle-exclamation"></i> Xác Nhận Hủy Lịch Hẹn</h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <p class="mb-10">
+                Bạn có chắc chắn muốn hủy lịch hẹn mã <strong id="cancel-apt-code"></strong> không?
+            </p>
+            <p class="cancel-notice">
+                Lưu ý: Theo Quy tắc Spa, bạn được tự hủy lịch trước giờ hẹn tối thiểu 2 tiếng. Sau khi hủy thành công, khung giờ này sẽ lập tức được mở khóa lại cho khách hàng khác có thể đặt.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn--secondary" data-close-modal>Không, giữ lịch</button>
+            <button type="button" class="btn btn--danger" id="btn-confirm-cancel-action">Đồng ý hủy</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Đánh Giá Trải Nghiệm Sau Khi Hoàn Thành -->
+<div class="modal-overlay" id="review-modal">
+    <div class="modal-box modal-box-sm">
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fa-solid fa-star star-gold"></i> Đánh Giá Dịch Vụ</h3>
+            <button type="button" class="modal-close" data-close-modal aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="form-submit-review">
+            <div class="modal-body">
+                <input type="hidden" id="review-apt-id">
+                <div class="form-group text-center">
+                    <label class="form-label">Mức độ hài lòng của bạn</label>
+                    <div class="rating-stars-input" id="rating-stars-container">
+                        <i class="fa-solid fa-star star is-selected" data-val="1"></i>
+                        <i class="fa-solid fa-star star is-selected" data-val="2"></i>
+                        <i class="fa-solid fa-star star is-selected" data-val="3"></i>
+                        <i class="fa-solid fa-star star is-selected" data-val="4"></i>
+                        <i class="fa-solid fa-star star is-selected" data-val="5"></i>
+                    </div>
+                    <input type="hidden" id="review-rating-val" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="review-author" class="form-label">Tên hiển thị của bạn</label>
+                    <input type="text" id="review-author" class="form-control" placeholder="VD: Mai Anh" required>
+                </div>
+                <div class="form-group">
+                    <label for="review-comment" class="form-label">Nhận xét chi tiết</label>
+                    <textarea id="review-comment" class="form-control" placeholder="Cảm nhận của bạn về không gian, tay nghề KTV..." required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn--secondary" data-close-modal>Để sau</button>
+                <button type="submit" class="btn btn--primary">Gửi Đánh Giá</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+  <div class="container footer_grid">
+    <div>
+      <div class="header_logo footer_brand">
+        <div class="header_logo-icon"><i class="fa-solid fa-spa"></i></div>
+        <span>Wed-Spa</span>
+      </div>
+      <p class="footer_desc">
+        Nơi tìm lại sự cân bằng cho cơ thể và tâm trí với các liệu trình trị liệu thảo mộc tự nhiên chuẩn mực.
+      </p>
+      <div class="footer_social">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="footer_title">Dịch Vụ</h4>
+      <ul class="footer_list">
+        <li><a href="services.html">Massage Body Đá Nóng</a></li>
+        <li><a href="services.html">Chăm Sóc Da Mặt</a></li>
+        <li><a href="services.html">Gội Đầu Dưỡng Sinh</a></li>
+        <li><a href="services.html">Trị Liệu Cổ Vai Gáy</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="footer_title">Liên Kết</h4>
+      <ul class="footer_list">
+        <li><a href="index.html">Trang Chủ</a></li>
+        <li><a href="about.html">Về Chúng Tôi</a></li>
+        <li><a href="services.html">Dịch Vụ & Bảng Giá</a></li>
+        <li><a href="booking.html">Đặt Lịch Hẹn</a></li>
+        <li><a href="my-bookings.html">Tra Cứu Lịch Đã Đặt</a></li>
+        <li><a href="contact.html">Liên Hệ & Chi Nhánh</a></li>
+        <li><a href="admin.html"><i class="fa-solid fa-user-shield text-primary"></i> Quản Trị Viên (Admin)</a></li>
+        <li><a href="privacy.html">Chính Sách Bảo Mật</a></li>
+        <li><a href="terms.html">Điều Khoản Dịch Vụ</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="footer_title">Thông Tin Liên Hệ</h4>
+      <ul class="footer_list">
+        <li class="footer_contact-item">
+          <i class="fa-solid fa-location-dot footer_contact-icon"></i>
+          <span>Xã Ngọc Hồi - Hà Nội</span>
+        </li>
+        <li class="footer_contact-item">
+          <i class="fa-solid fa-phone footer_contact-icon"></i>
+          <span>Hotline: 1900 6868 - 0912 345 678</span>
+        </li>
+        <li class="footer_contact-item">
+          <i class="fa-solid fa-clock footer_contact-icon"></i>
+          <span>Giờ mở cửa: 08:30 - 20:30 (T2 - CN)</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer_bottom">
+    <p>© 2026 Wed-Spa. Đồ Án Web Đặt Lịch Spa Chuyên Nghiệp. Mọi quyền được bảo lưu.</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/my-bookings.js"></script>
+</body>
+</html>
+

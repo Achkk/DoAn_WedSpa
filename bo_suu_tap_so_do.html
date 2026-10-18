@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bộ Sưu Tập Sơ Đồ Báo Cáo Đồ Án Web - Vũ Anh Minh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      margin: 0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .header-box {
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      color: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+    }
+    .header-box h1 {
+      margin: 0 0 10px 0;
+      font-size: 24px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .header-box p {
+      margin: 4px 0;
+      font-size: 15px;
+      opacity: 0.95;
+    }
+    .diagram-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+    .diagram-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .diagram-title .badge {
+      background: #ede9fe;
+      color: #6d28d9;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .diagram-desc {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+    .img-wrap {
+      background: #fafafa;
+      border: 1px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .caption {
+      font-family: 'Times New Roman', serif;
+      font-size: 14px;
+      font-style: italic;
+      color: #334155;
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+    .tip-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: #1e40af;
+      margin-top: 12px;
+      border-radius: 0 8px 8px 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header-box">
+    <h1>BỘ SƯU TẬP SƠ ĐỒ CHÈN VÀO BÁO CÁO ĐỒ ÁN WEB</h1>
+    <p>Sinh viên: <strong>Vũ Anh Minh</strong> | MSV: <strong>2924107526</strong> | Lớp: <strong>TH29.24</strong></p>
+    <p>Trường Đại học Kinh doanh và Công nghệ Hà Nội</p>
+    <p style="margin-top: 10px; font-size: 13.5px; background: rgba(255,255,255,0.2); display: inline-block; padding: 4px 12px; border-radius: 20px;">
+      Mẹo: Bấm <strong>Windows + Shift + S</strong> để quét chụp sơ đồ và dán trực tiếp vào Word (Ctrl + V)!
+    </p>
+  </div>
+
+  <!-- SƠ ĐỒ 1 -->
+  <div class="diagram-card" id="so-do-1">
+    <div class="diagram-title">
+      <span class="badge">Chương 1 - Mục 1.2</span>
+      <span>1. Sơ đồ hoạt động Client - Server</span>
+    </div>
+    <div class="diagram-desc">Vị trí chèn: Ngay dưới dòng <code>POST /api/users/login: Xác thực đăng nhập tài khoản quản trị viên.</code> ở Mục 1.2.</div>
+    <div class="img-wrap">
+      <img src="so_do_client_server.svg" alt="Sơ đồ Client - Server" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="caption">Hình 1.1: Sơ đồ hoạt động kiến trúc phân tầng hệ thống Wed-Spa</div>
+    <div class="tip-box">
+      <strong>Cách chèn vào Word:</strong> Trong Word, chọn <strong>Insert &rarr; Pictures &rarr; This Device</strong> và chọn file <code>so_do_client_server.svg</code> tại thư mục <code>d:\DoAn_WedSpa</code>, hoặc bấm <code>Windows + Shift + S</code> để chụp hình trên và dán vào!
+    </div>
+  </div>
+
+  <!-- SƠ ĐỒ 2 -->
+  <div class="diagram-card" id="so-do-2">
+    <div class="diagram-title">
+      <span class="badge">Chương 2 - Mục 2.1.1</span>
+      <span>2. Biểu đồ luồng dữ liệu mức khung cảnh (Context Diagram)</span>
+    </div>
+    <div class="diagram-desc">Vị trí chèn: Ở Mục 2.1.1 sau đoạn mô tả tác nhân Khách hàng và Quản trị viên.</div>
+    <div class="img-wrap">
+      <pre class="mermaid">
+flowchart LR
+    Customer[KHÁCH HÀNG<br>Customer]
+    Admin[QUẢN TRỊ VIÊN<br>Admin]
+    System((HỆ THỐNG WEBSITE<br>ĐẶT LỊCH SPA<br>WED-SPA))
+
+    Customer -->|Chọn DV, KTV, Ngày giờ hẹn,<br>Mã Voucher, SĐT tra cứu| System
+    System -->|Mã lịch hẹn SPA-1001,<br>Chi tiết lịch đặt, Phản hồi| Customer
+
+    Admin -->|Xác thực đăng nhập,<br>Duyệt/hủy đơn, Cập nhật DV & Voucher| System
+    System -->|Danh sách lịch hẹn cần xử lý,<br>Báo cáo doanh thu thực tế| Admin
+      </pre>
+    </div>
+    <div class="caption">Hình 2.1: Biểu đồ luồng dữ liệu mức khung cảnh của hệ thống Wed-Spa</div>
+  </div>
+
+  <!-- SƠ ĐỒ 3 -->
+  <div class="diagram-card" id="so-do-3">
+    <div class="diagram-title">
+      <span class="badge">Chương 2 - Mục 2.1.2</span>
+      <span>3. Biểu đồ luồng dữ liệu mức đỉnh (Level 0 DFD)</span>
+    </div>
+    <div class="diagram-desc">Vị trí chèn: Ở Mục 2.1.2 sau danh sách 4 tiến trình.</div>
+    <div class="img-wrap">
+      <pre class="mermaid">
+flowchart TD
+    Customer[Khách Hàng]
+    Admin[Quản Trị Viên]
+
+    P1(1.0 Đặt Lịch Hẹn)
+    P2(2.0 Tra Cứu Lịch Hẹn)
+    P3(3.0 Quản Trị & Báo Cáo)
+    P4(4.0 Quản Lý Danh Mục)
+
+    D_Services[(Kho Services)]
+    D_Therapists[(Kho Therapists)]
+    D_Vouchers[(Kho Vouchers)]
+    D_Appointments[(Kho Appointments)]
+
+    Customer -->|Chọn dịch vụ, KTV, ngày giờ| P1
+    D_Services & D_Therapists & D_Vouchers --> P1
+    P1 -->|Lưu đơn hẹn mới| D_Appointments
+
+    Customer -->|Nhập SĐT tra cứu| P2
+    D_Appointments <-->|Tra cứu / Hủy lịch| P2
+
+    Admin -->|Lệnh duyệt / Hoàn thành / Hủy| P3
+    D_Appointments <-->|Thống kê & Đổi trạng thái| P3
+
+    Admin -->|Thêm, sửa, xóa| P4
+    P4 -->|Cập nhật| D_Services & D_Therapists & D_Vouchers
+      </pre>
+    </div>
+    <div class="caption">Hình 2.2: Biểu đồ luồng dữ liệu mức đỉnh (Level 0 DFD)</div>
+  </div>
+
+  <!-- SƠ ĐỒ 4 -->
+  <div class="diagram-card" id="so-do-4">
+    <div class="diagram-title">
+      <span class="badge">Chương 2 - Mục 2.1.3</span>
+      <span>4. Biểu đồ Use Case tổng quan</span>
+    </div>
+    <div class="diagram-desc">Vị trí chèn: Ở Mục 2.1.3 sau phần phân rã chức năng.</div>
+    <div class="img-wrap">
+      <pre class="mermaid">
+flowchart LR
+    Customer((Khách hàng))
+    Admin((Quản trị viên))
+
+    subgraph "Hệ Thống Website Đặt Lịch Wed-Spa"
+        UC1[Xem Dịch vụ & Bảng giá]
+        UC2[Xem Hồ sơ Kỹ thuật viên]
+        UC3[Đặt lịch hẹn dịch vụ]
+        UC4[Áp dụng mã giảm giá]
+        UC5[Tra cứu lịch hẹn theo SĐT]
+        UC6[Tự hủy lịch hẹn đã đặt]
+        UC7[Gửi tin nhắn liên hệ & Đánh giá]
+
+        UC8[Đăng nhập hệ thống Admin]
+        UC9[Quản lý & Duyệt lịch hẹn]
+        UC10[Quản lý Danh mục Dịch vụ]
+        UC11[Quản lý Kỹ thuật viên]
+        UC12[Quản lý Mã giảm giá Voucher]
+        UC13[Xem Báo cáo Thống kê Doanh thu]
+    end
+
+    Customer --> UC1 & UC2 & UC3 & UC5 & UC6 & UC7
+    UC3 -.->|<< include >>| UC4
+
+    Admin --> UC8 & UC9 & UC10 & UC11 & UC12 & UC13
+      </pre>
+    </div>
+    <div class="caption">Hình 2.3: Biểu đồ Use Case tổng quan của hệ thống</div>
+  </div>
+
+  <!-- SƠ ĐỒ 5 -->
+  <div class="diagram-card" id="so-do-5">
+    <div class="diagram-title">
+      <span class="badge">Chương 2 - Mục 2.2.1</span>
+      <span>5. Sơ đồ thực thể liên kết (ERD)</span>
+    </div>
+    <div class="diagram-desc">Vị trí chèn: Ở Mục 2.2.1 trước các bảng CSDL chi tiết.</div>
+    <div class="img-wrap">
+      <pre class="mermaid">
+erDiagram
+    SERVICES ||--o{ APPOINTMENTS : "được đặt trong"
+    THERAPISTS ||--o{ APPOINTMENTS : "thực hiện"
+    VOUCHERS ||--o{ APPOINTMENTS : "áp dụng cho"
+    USERS ||--o{ APPOINTMENTS : "quản lý / đặt"
+
+    SERVICES {
+        varchar(20) id PK
+        nvarchar(255) name
+        nvarchar(100) category
+        int duration
+        decimal price
+        varchar(50) icon
+        nvarchar_max description
+        nvarchar_max benefits
+    }
+
+    THERAPISTS {
+        varchar(20) id PK
+        nvarchar(100) name
+        nvarchar(255) title
+        varchar(50) icon
+        float rating
+        nvarchar(50) experience
+        nvarchar_max specialty
+    }
+
+    VOUCHERS {
+        varchar(50) code PK
+        varchar(20) type
+        int value
+        decimal minOrder
+        nvarchar(255) description
+        bit isActive
+    }
+
+    APPOINTMENTS {
+        varchar(30) id PK
+        nvarchar(150) customerName
+        varchar(20) customerPhone
+        varchar(20) serviceId FK
+        varchar(20) therapistId FK
+        date appointmentDate
+        varchar(10) appointmentTime
+        decimal originalPrice
+        varchar(50) voucherCode FK
+        decimal discountAmount
+        decimal finalPrice
+        varchar(20) paymentMethod
+        varchar(20) status
+        nvarchar_max notes
+        datetime createdAt
+    }
+
+    USERS {
+        varchar(50) id PK
+        varchar(100) username
+        varchar(255) email
+        varchar(20) phone
+        nvarchar(150) fullName
+        varchar(255) password
+        varchar(20) role
+        datetime createdAt
+    }
+      </pre>
+    </div>
+    <div class="caption">Hình 2.4: Sơ đồ thực thể liên kết (ERD) cơ sở dữ liệu WedSpaDB</div>
+  </div>
+
+</div>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+</script>
+</body>
+</html>
